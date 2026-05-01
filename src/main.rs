@@ -88,10 +88,12 @@ impl Drop for QrApp {
 }
 
 impl eframe::App for QrApp {
-    fn update(&mut self, ctx: &egui::Context, _frame: &mut eframe::Frame) {
+    fn ui(&mut self, ui: &mut egui::Ui, _frame: &mut eframe::Frame) {
         self.poll_scanner_messages();
 
-        egui::CentralPanel::default().show(ctx, |ui| {
+        let ctx = ui.ctx().clone();
+
+        egui::CentralPanel::default().show_inside(ui, |ui| {
             ui.heading("QR Studio - Rust / Windows 11");
             ui.add_space(6.0);
 
@@ -103,7 +105,7 @@ impl eframe::App for QrApp {
             ui.separator();
 
             match self.tab {
-                Tab::Generate => self.generator_ui(ui, ctx),
+                Tab::Generate => self.generator_ui(ui, &ctx),
                 Tab::Scan => self.scanner_ui(ui),
             }
         });
