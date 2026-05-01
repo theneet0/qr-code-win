@@ -1,0 +1,18 @@
+[package]
+name = "qr_studio"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
+eframe = "0.34.1"
+image = { version = "0.25", default-features = false, features = ["png"] }
+qrcode = { version = "0.14.1", features = ["image"] }
+rqrr = { version = "0.10.1", features = ["image"] }
+nokhwa = { version = "0.10.10", features = ["input-native"] }
+
+[profile.release]
+opt-level = "z"
+lto = true
+codegen-units = 1
+strip = true
+panic = "abort"
